@@ -19,8 +19,13 @@
     ```
 
     
-
 # Запуск
+
+* Запуск Selenium grid:
+
+    ```bash
+    cd bin && java -jar selenium-server.jar standalone --port 4444
+    ```
 
 * Запуск всех тестов проекта:
 

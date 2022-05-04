@@ -131,4 +131,5 @@ dmypy.json
 
 # Also
 .idea/
+.vscode
 bin/
