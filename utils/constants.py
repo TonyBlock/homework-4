@@ -8,7 +8,7 @@ selenium_bin_urls = {
         "server": "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar",
         "geckodriver": "https://github.com/mozilla/geckodriver/releases/download/v0.31.0/"
                        "geckodriver-v0.31.0-macos-aarch64.tar.gz",
-        "chromedriver": "https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_mac64_m1.zip"
+        "chromedriver": "https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_mac64.zip"
 
     },
     "Linux": {
@@ -31,6 +31,6 @@ browsers = {
 }
 
 authorization_data = {
-    "login": os.getenv("PASSWORD"),
-    "password": os.getenv("LOGIN")
+    "login": os.getenv("LOGIN"),
+    "password": os.getenv("PASSWORD")
 }
