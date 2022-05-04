@@ -1,3 +1,5 @@
+import stat
+
 import wget
 import os
 import utils.constants as constants
@@ -53,3 +55,4 @@ def download_selenium(urls, force=False):
     with zipfile.ZipFile(os.path.join("bin", chrome_archive_name)) as file:
         file.extractall('bin')
     os.remove(os.path.join("bin", chrome_archive_name))
+    os.chmod(os.path.join("bin", constants.selenium_bin_files["chromedriver"]), stat.S_IEXEC)

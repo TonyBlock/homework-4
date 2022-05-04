@@ -29,3 +29,8 @@ browsers = {
     "CHROME": webdriver.ChromeOptions(),
     "FIREFOX": webdriver.FirefoxOptions()
 }
+
+authorization_data = {
+    "login": None,
+    "password": None
+}

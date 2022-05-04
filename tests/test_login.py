@@ -8,8 +8,6 @@ class SimpleTest(BaseTestCase):
         super().setUp()
         self.page = LoginPage(self.driver)
 
-        print("setUp: " + str(datetime.datetime.now()))
-
     def test_login(self):
         self.page.open()
         print(self.page.btn_enter.text)
@@ -18,5 +16,5 @@ class SimpleTest(BaseTestCase):
     def test_two(self):
         self.assertEqual(2, 2, "2==2")
 
-    def tearDown(self) -> None:
-        print("tearDown: " + str(datetime.datetime.now()))
+    def tearDown(self):
+        super().tearDown()
