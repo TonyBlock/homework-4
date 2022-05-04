@@ -1,5 +1,5 @@
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium import webdriver
+import os
 
 
 selenium_bin_urls = {
@@ -31,6 +31,6 @@ browsers = {
 }
 
 authorization_data = {
-    "login": None,
-    "password": None
+    "login": os.getenv("PASSWORD"),
+    "password": os.getenv("LOGIN")
 }

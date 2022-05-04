@@ -2,15 +2,12 @@
 import unittest
 import sys
 import utils.utils as utils
-import os
-from tests.test_login import SimpleTest
-# from tests.test_secound import SecondTestCase
+from tests.test_login import LoginTest
 
 
 def run_tests(dir, pattern="test*.py"):
     tests = unittest.TestLoader().discover(start_dir=dir, pattern=pattern)
     unittest.TextTestRunner().run(tests)
-
 
 
 if __name__ == '__main__':
@@ -33,7 +30,7 @@ def load_tests(loader, tests, pattern):
     python -m unittest run_tests.py
     """
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(SimpleTest))
+    suite.addTest(unittest.makeSuite(LoginTest))
     # suite.addTest(unittest.makeSuite(SecondTestCase))
     return suite
 

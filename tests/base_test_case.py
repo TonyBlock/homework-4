@@ -6,7 +6,6 @@ import os
 from selenium import webdriver
 
 import utils.constants as constants
-import time
 
 
 class BaseTestCase(unittest.TestCase):
@@ -26,7 +25,7 @@ class BaseTestCase(unittest.TestCase):
                                     "--port", "4444"], env=environment,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         cls.processes.put(process)
-        time.sleep(2)
+        # time.sleep(2)
         print("  done")
 
     @classmethod
