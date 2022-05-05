@@ -4,6 +4,7 @@ import subprocess
 import os
 
 from selenium import webdriver
+from pageobjects.pages.login import LoginPage
 
 import utils.constants as constants
 
@@ -44,6 +45,13 @@ class BaseTestCase(unittest.TestCase):
 
         # Максимальное время, которое find_element будет пытаться что-то найти
         self.driver.implicitly_wait(10)
+
+    def login(self):
+        login = LoginPage(self.driver)
+        login.open()
+        login.login(constants.authorization_data["login"], constants.authorization_data["password"])
+        # Иначе оно опять открывает login
+        self.driver.get(login.BASE_URL)
 
     def tearDown(self):
         self.driver.quit()

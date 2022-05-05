@@ -3,6 +3,7 @@ import unittest
 import sys
 import utils.utils as utils
 from tests.test_login import LoginTest
+from tests.test_modal_window_column_open import ModalWindowColumnOpen
 
 
 def run_tests(dir, pattern="test*.py"):
@@ -30,7 +31,8 @@ def load_tests(loader, tests, pattern):
     python -m unittest run_tests.py
     """
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(LoginTest))
+    #suite.addTest(unittest.makeSuite(LoginTest))
+    suite.addTest(unittest.makeSuite(ModalWindowColumnOpen))
     # suite.addTest(unittest.makeSuite(SecondTestCase))
     return suite
 

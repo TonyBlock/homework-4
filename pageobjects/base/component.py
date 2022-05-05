@@ -15,7 +15,11 @@ class Component(object):
         self.container_selector = css_selector
         self.component = None  # type: WebElement
 
-    def locate(self):
+    def locate(self, reverse = False):
+      if (reverse):
+        self.component = WebDriverWait(self.driver, 20)\
+            .until_not(EC.presence_of_element_located((By.CSS_SELECTOR, self.container_selector)))
+      else:
         self.component = WebDriverWait(self.driver, 20)\
             .until(EC.presence_of_element_located((By.CSS_SELECTOR, self.container_selector)))
 
