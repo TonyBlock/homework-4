@@ -1,5 +1,4 @@
 import stat
-
 import wget
 import os
 import utils.constants as constants
@@ -7,6 +6,8 @@ import platform
 import shutil
 import tarfile
 import zipfile
+import time
+import socket
 
 
 def is_selenium_installed():
@@ -56,3 +57,10 @@ def download_selenium(urls, force=False):
         file.extractall('bin')
     os.remove(os.path.join("bin", chrome_archive_name))
     os.chmod(os.path.join("bin", constants.selenium_bin_files["chromedriver"]), stat.S_IEXEC)
+
+
+def sleep_while_server_not_started(host, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    while sock.connect_ex((host, port)) != 0:
+        time.sleep(0.25)
+    sock.close()

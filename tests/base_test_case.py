@@ -2,9 +2,8 @@ import queue
 import unittest
 import subprocess
 import os
-
 from selenium import webdriver
-
+import utils.utils as utils
 import utils.constants as constants
 
 
@@ -21,11 +20,12 @@ class BaseTestCase(unittest.TestCase):
         environment["PATH"] = "{}:{}".format(bin_dir, environment["PATH"])
         process = subprocess.Popen(["java", "-jar",
                                     os.path.join(bin_dir, constants.selenium_bin_files["server"]),
-                                    "standalone", "--host", "127.0.0.1",
-                                    "--port", "4444"], env=environment,
+                                    "standalone", "--host", constants.selenium_server["host"],
+                                    "--port", str(constants.selenium_server["port"])], env=environment,
                                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         cls.processes.put(process)
-        # time.sleep(2)
+        utils.sleep_while_server_not_started(constants.selenium_server["host"],
+                                             constants.selenium_server["port"])
         print("  done")
 
     @classmethod
@@ -38,7 +38,8 @@ class BaseTestCase(unittest.TestCase):
         if self.BROWSER not in constants.browsers.keys():
             raise ValueError("задан не правильный тип браузера")
         self.driver = webdriver.Remote(
-            command_executor="http://127.0.0.1:4444",
+            command_executor="http://{}:{}".format(constants.selenium_server["host"],
+                                                   constants.selenium_server["port"]),
             options=constants.browsers[self.BROWSER]
         )
 
