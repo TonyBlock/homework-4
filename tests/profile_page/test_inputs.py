@@ -27,8 +27,8 @@ class LoginTest(TestCaseWithLoginLogout):
         self.page.change_login(new_login, constants.authorization_data["password"])
         self.page.refresh()
 
-        current_login_input = self.page.input_login_text
         current_login_header = Header.create(self.driver).user_name
+        current_login_input = self.page.input_login_text
         self.page.change_login(constants.authorization_data["login"], constants.authorization_data["password"])
 
         self.assertEqual(current_login_input, new_login,

@@ -58,7 +58,9 @@ class ProfilePage(Page):
 
     @retry(StaleElementReferenceException)
     def set_login_input(self, text):
-        self.input_login.send_keys(text)
+        login = self.driver.find_element(by=By.ID, value="login")
+        login.clear()
+        login.send_keys(text)
 
     @retry(StaleElementReferenceException)
     def set_input_email(self, text):
@@ -86,8 +88,11 @@ class ProfilePage(Page):
         return self.input_email.get_attribute('value')
 
     @property
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ValueError))
     def input_login_text(self):
+        value = self.input_login.get_attribute('value')
+        if len(value) == 0:
+            raise ValueError
         return self.input_login.get_attribute('value')
 
     @retry(StaleElementReferenceException)
@@ -95,7 +100,6 @@ class ProfilePage(Page):
         self.input_login.clear()
 
     def change_login(self, new_login, password):
-        self.input_login_clear()
         self.set_login_input(new_login)
         self.set_old_password(password)
         self.click_save_btn()
