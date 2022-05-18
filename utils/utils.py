@@ -64,11 +64,3 @@ def sleep_while_server_not_started(host, port):
     while sock.connect_ex((host, port)) != 0:
         time.sleep(0.25)
     sock.close()
-
-
-def sleep_while_server_work(host, port):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    while sock.connect_ex((host, port)) == 0:
-        sock.close()
-        time.sleep(0.25)
-    sock.close()
