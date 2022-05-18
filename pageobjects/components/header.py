@@ -20,7 +20,6 @@ class Header(component.Component):
         return self.driver.find_element(by=By.ID, value="logout")
 
     @property
-    @retry(StaleElementReferenceException)
     def user_name(self):
         return self.span_user_name.text
 

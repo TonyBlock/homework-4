@@ -12,6 +12,3 @@ class Page(object):
         url = urljoin(self.BASE_URL, path)
         self.driver.get(url)
         self.driver.maximize_window()
-
-    def refresh(self):
-        self.driver.refresh()

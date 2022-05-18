@@ -8,7 +8,6 @@ import tarfile
 import zipfile
 import time
 import socket
-import uuid
 
 
 def is_selenium_installed():
@@ -73,7 +72,3 @@ def sleep_while_server_work(host, port):
         sock.close()
         time.sleep(0.25)
     sock.close()
-
-
-def generate_unique_login():
-    return str(uuid.uuid1()).replace("-", "")[:20]
