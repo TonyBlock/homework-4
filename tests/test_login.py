@@ -12,7 +12,10 @@ class LoginTest(BaseTestCase):
     def test_login(self):
         self.page.open()
         self.page.login(authorization_data["login"], authorization_data["password"])
+        self.page.wait_for_redirect()
         self.assertEqual(authorization_data["login"], Header.create(self.driver).user_name)
 
     def tearDown(self):
+        self.page.logout()
         super().tearDown()
+
