@@ -5,6 +5,7 @@ import os
 from selenium import webdriver
 import utils.utils as utils
 import utils.constants as constants
+from selenium.webdriver.remote.file_detector import LocalFileDetector
 
 
 class BaseTestCase(unittest.TestCase):
@@ -32,6 +33,8 @@ class BaseTestCase(unittest.TestCase):
     def tearDownClass(cls):
         process = cls.processes.get()  # type: subprocess.Popen
         process.kill()
+        utils.sleep_while_server_work(constants.selenium_server["host"],
+                                      constants.selenium_server["port"])
 
     def setUp(self):
         self.BROWSER = os.environ.get("BROWSER")
@@ -45,6 +48,7 @@ class BaseTestCase(unittest.TestCase):
 
         # Максимальное время, которое find_element будет пытаться что-то найти
         self.driver.implicitly_wait(10)
+        self.driver.file_detector = LocalFileDetector()
 
     def tearDown(self):
         self.driver.quit()
