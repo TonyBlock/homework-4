@@ -6,6 +6,7 @@ from selenium import webdriver
 import utils.utils as utils
 import utils.constants as constants
 from selenium.webdriver.remote.file_detector import LocalFileDetector
+from pageobjects.pages.login import LoginPage
 
 
 class BaseTestCase(unittest.TestCase):
@@ -52,3 +53,17 @@ class BaseTestCase(unittest.TestCase):
 
     def tearDown(self):
         self.driver.quit()
+
+
+class TestCaseWithLoginLogout(BaseTestCase):
+    def setUp(self):
+        super().setUp()
+
+        self.loginPage = LoginPage(self.driver)
+        self.loginPage.open()
+        self.loginPage.login(constants.authorization_data["login"], constants.authorization_data["password"])
+        self.loginPage.wait_for_redirect()
+
+    def tearDown(self):
+        self.loginPage.logout()
+        super().tearDown()
