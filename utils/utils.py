@@ -77,3 +77,7 @@ def sleep_while_server_work(host, port):
 
 def generate_unique_login():
     return str(uuid.uuid1()).replace("-", "")[:20]
+
+
+def generate_unique_email():
+    return str(uuid.uuid1()).replace("-", "") + "@gmail.com"

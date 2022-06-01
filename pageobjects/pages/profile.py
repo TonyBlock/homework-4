@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
-from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, \
+    ElementNotInteractableException
 from retry import retry
 
 
@@ -56,15 +57,17 @@ class ProfilePage(Page):
             return False
         return True
 
-    @retry(StaleElementReferenceException)
-    def set_login_input(self, text):
-        login = self.driver.find_element(by=By.ID, value="login")
-        login.clear()
-        login.send_keys(text)
+    @retry((StaleElementReferenceException, ElementNotInteractableException))
+    def set_input_login(self, text):
+        login_input = self.input_login
+        login_input.clear()
+        login_input.send_keys(text)
 
     @retry(StaleElementReferenceException)
     def set_input_email(self, text):
-        self.input_email.send_keys(text)
+        email_input = self.input_email
+        email_input.clear()
+        email_input.send_keys(text)
 
     @retry(StaleElementReferenceException)
     def set_input_new_password(self, text):
@@ -83,9 +86,12 @@ class ProfilePage(Page):
         self.btn_save.click()
 
     @property
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ValueError))
     def input_email_text(self):
-        return self.input_email.get_attribute('value')
+        value = self.input_email.get_attribute('value')
+        if len(value) == 0:
+            raise ValueError
+        return value
 
     @property
     @retry((StaleElementReferenceException, ValueError))
@@ -93,13 +99,18 @@ class ProfilePage(Page):
         value = self.input_login.get_attribute('value')
         if len(value) == 0:
             raise ValueError
-        return self.input_login.get_attribute('value')
+        return value
 
     @retry(StaleElementReferenceException)
     def input_login_clear(self):
         self.input_login.clear()
 
     def change_login(self, new_login, password):
-        self.set_login_input(new_login)
+        self.set_input_login(new_login)
+        self.set_old_password(password)
+        self.click_save_btn()
+
+    def change_email(self, new_email, password):
+        self.set_input_email(new_email)
         self.set_old_password(password)
         self.click_save_btn()
