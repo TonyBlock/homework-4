@@ -22,6 +22,16 @@ class LoginTest(TestCaseWithLoginLogout):
                          constants.authorization_data["login"],
                          "Логин в хедере должен остаться прежним, т.к. новый логин уже занят")
 
+    def test_change_login_busy(self):
+        self.page.change_login("busylogin", constants.authorization_data["password"])
+        self.page.refresh()
+        self.assertEqual(self.page.input_login_text,
+                         constants.authorization_data["login"],
+                         "Логин должен остаться прежним, т.к. новый логин уже занят")
+        self.assertEqual(Header.create(self.driver).user_name,
+                         constants.authorization_data["login"],
+                         "Логин в хедере должен остаться прежним, т.к. новый логин уже занят")
+
     def test_change_login_success(self):
         new_login = utils.generate_unique_login()
         self.page.change_login(new_login, constants.authorization_data["password"])
