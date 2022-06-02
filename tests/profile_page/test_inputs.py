@@ -48,3 +48,10 @@ class LoginTest(TestCaseWithLoginLogout):
 
         self.assertEqual(current_email_input, new_email,
                          "Email должен смениться, в инпуте отобжается новый email")
+
+    def test_change_email_busy(self):
+        original_email = self.page.input_email_text
+        self.page.change_email("busylogin@busylogin", constants.authorization_data["password"])
+        self.page.refresh()
+        self.assertEqual(self.page.input_email_text, original_email,
+                         "Email должен остаться прежним, т.к. новый email уже занят")
