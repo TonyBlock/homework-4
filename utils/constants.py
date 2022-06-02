@@ -1,7 +1,6 @@
 from selenium import webdriver
 import os
 
-
 selenium_bin_urls = {
     # MacOS для ARM
     "Darwin": {
@@ -30,8 +29,15 @@ selenium_bin_files = {
     "chromedriver": "chromedriver"
 }
 
+
+def get_chrome_options():
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    return options
+
+
 browsers = {
-    "CHROME": webdriver.ChromeOptions(),
+    "CHROME": get_chrome_options(),
     "FIREFOX": webdriver.FirefoxOptions()
 }
 

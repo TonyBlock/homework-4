@@ -6,6 +6,15 @@ from retry import retry
 
 class ProfilePage(Page):
 
+    def click_save_if_page_not_repainted(self):
+        save_btn = self.btn_save
+        # Проверяем, что ввод не сбросился
+        value = self.input_old_password.get_attribute('value')
+        if len(value) == 0:
+            raise ValueError
+
+        save_btn.click()
+
     @property
     def btn_avatar(self):
         return self.driver.find_element(by=By.CSS_SELECTOR, value=".button.profile-box__button")
@@ -100,15 +109,19 @@ class ProfilePage(Page):
     def input_login_clear(self):
         self.input_login.clear()
 
+    @retry((StaleElementReferenceException, ValueError))
     def change_login(self, new_login, password):
+        self.wait_last_event()
         self.set_input_login(new_login)
         self.set_old_password(password)
-        self.click_save_btn()
+        self.click_save_if_page_not_repainted()
 
+    @retry((StaleElementReferenceException, ValueError))
     def change_email(self, new_email, password):
+        self.wait_last_event()
         self.set_input_email(new_email)
         self.set_old_password(password)
-        self.click_save_btn()
+        self.click_save_if_page_not_repainted()
 
     def is_input_error_exists(self):
         return self.is_element_exists(by=By.CSS_SELECTOR, selector=".error.error_margin")
@@ -124,11 +137,4 @@ class ProfilePage(Page):
         self.set_input_new_password(new_password)
         self.set_input_new_password_repeat(new_password_repeat)
         self.set_old_password(old_password)
-        save_btn = self.btn_save
-
-        # Проверяем, что ввод не сбросился
-        value = self.input_old_password.get_attribute('value')
-        if len(value) == 0:
-            raise ValueError
-
-        save_btn.click()
+        self.click_save_if_page_not_repainted()

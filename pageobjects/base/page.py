@@ -28,6 +28,12 @@ class Page(object):
         return True
 
     def wait_last_event(self):
+        # Хотя для find_element задан implicitly wait, это не помогает из-за особенностей фронтенда.
+        # После того как мы нашли элемент, страница может перерисоваться (не предсказуемо) и
+        # элемент станет не валиден, от части это решается с помощью декоратора @retry, но в случае
+        # с вводом в input'ы формы, эта проблема скорее всего вообще не решает (т.к. скорее всего
+        # содержимое инпутов сбрасывается из-за перерисовки уже после того, как мы  в тесте нажимаем
+        # кнопку "отправить форму")
         WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.ID, "root")))
         self.driver.execute_script("""setTimeout(() => {
             const marker = document.createElement("div")

@@ -62,7 +62,7 @@ class LoginTest(TestCaseWithLoginLogout):
 
     def test_email_invalid(self):
         self.page.change_email("invalid_email", constants.authorization_data["password"])
-        self.assertTrue(self.page.is_email_error_exists(), "Ожидался вывод сообщения о не корректном email")
+        self.assertTrue(self.page.is_input_error_exists(), "Ожидался вывод сообщения о не корректном email")
 
     def test_password_change_success(self):
         new_password = utils.generate_unique_password()
@@ -85,3 +85,9 @@ class LoginTest(TestCaseWithLoginLogout):
                                   new_password_repeat="password1230",
                                   old_password=constants.authorization_data["password"])
         self.assertTrue(self.page.is_input_error_exists(), "Ожидался вывод сообщения о не корректной паре паролей")
+
+    def test_password_invalid(self):
+        self.page.change_password(new_password="1234password",
+                                  new_password_repeat="1234password",
+                                  old_password=constants.authorization_data["password"])
+        self.assertTrue(self.page.is_input_error_exists(), "Ожидался вывод сообщения о не корректном пароле")
