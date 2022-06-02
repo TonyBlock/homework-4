@@ -2,10 +2,20 @@ from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
 from pageobjects.components.header import Header
 from retry import retry
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 
 
 class LoginPage(Page):
+    def open(self, *args, **kwargs):
+        super().open("login")
+
+    @property
+    def div_login_error(self):
+        return self.driver.find_element(by=By.ID, value="login-validation-box")
+
+    @property
+    def div_password_error(self):
+        return self.driver.find_element(by=By.ID, value="password-validation-box")
 
     @property
     def btn_enter(self):
@@ -18,9 +28,6 @@ class LoginPage(Page):
     @property
     def input_login(self):
         return self.driver.find_element(by=By.ID, value="login")
-
-    def open(self, *args, **kwargs):
-        super().open("login")
 
     @retry(StaleElementReferenceException)
     def fill_login(self, login):
@@ -42,3 +49,17 @@ class LoginPage(Page):
 
     def wait_for_redirect(self):
         self.driver.find_element(by=By.ID, value="createTeamBtnId")
+
+    def is_login_error_exists(self):
+        return self.is_element_exists(id_selector="login-validation-box")
+
+    @retry((StaleElementReferenceException, NoSuchElementException), tries=5)
+    def login_error_text(self):
+        return self.div_login_error.text
+
+    def is_password_error_exists(self):
+        return self.is_element_exists(id_selector="password-validation-box")
+
+    @retry((StaleElementReferenceException, NoSuchElementException), tries=5)
+    def password_error_text(self):
+        return self.div_password_error.text

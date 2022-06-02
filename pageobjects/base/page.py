@@ -1,5 +1,7 @@
 from urllib.parse import urljoin
 import selenium.webdriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 
 
 class Page(object):
@@ -15,3 +17,10 @@ class Page(object):
 
     def refresh(self):
         self.driver.refresh()
+
+    def is_element_exists(self, id_selector):
+        try:
+            self.driver.find_element(by=By.ID, value=id_selector)
+        except NoSuchElementException:
+            return False
+        return True
