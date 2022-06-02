@@ -82,7 +82,7 @@ class LoginTest(TestCaseWithLoginLogout):
 
     def test_password_change_mismatch(self):
         self.page.change_password(new_password="password1234",
-                                  new_password_repeat="password1230",
+                                  new_password_repeat="password1231",
                                   old_password=constants.authorization_data["password"])
         self.assertTrue(self.page.is_input_error_exists(), "Ожидался вывод сообщения о не корректной паре паролей")
 
