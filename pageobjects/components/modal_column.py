@@ -30,7 +30,8 @@ class ModalColumn(component.Component):
         return self.driver.find_element(by=By.CSS_SELECTOR, value="error").text
 
     def fill_column_name(self, name):
-        self.input_name.send_keys(name)
+        cardlist_name = self.driver.find_element(by=By.NAME, value="cardlist-name")
+        self.cardlist_name.send_keys(name)
 
     def fill_modal(self, name):
         self.fill_column_name(name)

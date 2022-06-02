@@ -133,3 +133,4 @@ dmypy.json
 .idea/
 .vscode
 bin/
+.DS_Store

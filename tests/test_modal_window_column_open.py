@@ -16,12 +16,6 @@ class ModalWindowColumnOpen(BaseTestCase):
         self.modal_column = ModalColumn.create(self.driver)
         self.modal_column.locate()
 
-    def test_modal_window_column_close(self):
-        self.page.btn_modal_window_column.click()
-        self.modal_column = ModalColumn.create(self.driver)
-        self.modal_column.close()
-        self.modal_column.locate(True)
-
     def test_modal_window_column_failed_creation(self):
         self.page.btn_modal_window_column.click()
         self.modal_column = ModalColumn.create(self.driver)
