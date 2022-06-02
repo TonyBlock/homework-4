@@ -19,6 +19,11 @@ selenium_bin_urls = {
     # }
 }
 
+selenium_server = {
+    "host": "127.0.0.1",
+    "port": 4444
+}
+
 selenium_bin_files = {
     "server": "selenium-server.jar",
     "geckodriver": "geckodriver",
