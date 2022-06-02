@@ -113,3 +113,6 @@ class ProfilePage(Page):
 
     def is_email_error_exists(self):
         return self.is_element_exists(by=By.CSS_SELECTOR, selector=".error.error_margin")
+
+    def is_login_error_exists(self):
+        return self.is_element_exists(selector="login-validation-box")

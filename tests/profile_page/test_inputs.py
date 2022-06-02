@@ -22,6 +22,10 @@ class LoginTest(TestCaseWithLoginLogout):
                          constants.authorization_data["login"],
                          "Логин в хедере должен остаться прежним, т.к. новый логин уже занят")
 
+    def test_change_login_invalid(self):
+        self.page.change_login("не корректный логин", constants.authorization_data["password"])
+        self.assertTrue(self.page.is_login_error_exists(), "Ожидался вывод контейнера с ошибкой о не корретном логине")
+
     def test_change_login_success(self):
         new_login = utils.generate_unique_login()
         self.page.change_login(new_login, constants.authorization_data["password"])
@@ -59,6 +63,8 @@ class LoginTest(TestCaseWithLoginLogout):
     def test_email_invalid(self):
         self.page.change_email("invalid_email", constants.authorization_data["password"])
         self.assertTrue(self.page.is_email_error_exists(), "Ожидался вывод сообщения о не корректном email")
+
+    def test_password_change
 
 
 
