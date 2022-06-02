@@ -11,12 +11,12 @@ selenium_bin_urls = {
         "chromedriver": "https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_mac64.zip"
 
     },
-    "Linux": {
-        "server": "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar",
-        "geckodriver": "https://github.com/mozilla/geckodriver/releases/download/v0.31.0/"
-                       "geckodriver-v0.31.0-linux64.tar.gz",
-        "chromedriver": "https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip"
-    }
+    # "Linux": {
+    #     "server": "https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.4.jar",
+    #     "geckodriver": "https://github.com/mozilla/geckodriver/releases/download/v0.31.0/"
+    #                    "geckodriver-v0.31.0-linux64.tar.gz",
+    #     "chromedriver": "https://chromedriver.storage.googleapis.com/101.0.4951.41/chromedriver_linux64.zip"
+    # }
 }
 
 selenium_server = {
