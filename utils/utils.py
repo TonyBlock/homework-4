@@ -75,9 +75,17 @@ def sleep_while_server_work(host, port):
     sock.close()
 
 
+def generate_unique_string():
+    return str(uuid.uuid1()).replace("-", "")
+
+
+def generate_unique_password():
+    return "x{}".format(generate_unique_string()[:24])
+
+
 def generate_unique_login():
-    return str(uuid.uuid1()).replace("-", "")[:20]
+    return generate_unique_string()[:20]
 
 
 def generate_unique_email():
-    return str(uuid.uuid1()).replace("-", "") + "@gmail.com"
+    return generate_unique_string() + "@gmail.com"

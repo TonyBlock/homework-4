@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, \
@@ -65,19 +67,19 @@ class ProfilePage(Page):
         email_input.clear()
         email_input.send_keys(text)
 
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ElementNotInteractableException))
     def set_input_new_password(self, text):
         self.input_new_password.send_keys(text)
 
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ElementNotInteractableException))
     def set_input_new_password_repeat(self, text):
         self.input_new_password_repeat.send_keys(text)
 
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ElementNotInteractableException))
     def set_old_password(self, text):
         self.input_old_password.send_keys(text)
 
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ElementNotInteractableException))
     def click_save_btn(self):
         self.btn_save.click()
 
@@ -116,3 +118,20 @@ class ProfilePage(Page):
 
     def is_login_error_exists(self):
         return self.is_element_exists(selector="login-validation-box")
+
+    # Страница может перерисоваться после того как мы ввели данные.
+    # В таком случае (ValueError) вводим данные повторно.
+    @retry((StaleElementReferenceException, ValueError))
+    def change_password(self, new_password, new_password_repeat, old_password):
+        self.wait_last_event()
+        self.set_input_new_password(new_password)
+        self.set_input_new_password_repeat(new_password_repeat)
+        self.set_old_password(old_password)
+        save_btn = self.btn_save
+
+        # Проверяем, что ввод не сбросился
+        value = self.input_old_password.get_attribute('value')
+        if len(value) == 0:
+            raise ValueError
+
+        save_btn.click()

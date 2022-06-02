@@ -59,11 +59,11 @@ class TestCaseWithLoginLogout(BaseTestCase):
     def setUp(self):
         super().setUp()
 
-        self.loginPage = LoginPage(self.driver)
-        self.loginPage.open()
-        self.loginPage.login(constants.authorization_data["login"], constants.authorization_data["password"])
-        self.loginPage.wait_for_redirect()
+        self.login_page = LoginPage(self.driver)
+        self.login_page.open()
+        self.login_page.login(constants.authorization_data["login"], constants.authorization_data["password"])
+        self.login_page.wait_for_redirect()
 
     def tearDown(self):
-        self.loginPage.logout()
+        self.login_page.logout()
         super().tearDown()

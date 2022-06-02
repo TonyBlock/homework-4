@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
 from pageobjects.components.header import Header
@@ -37,11 +39,23 @@ class LoginPage(Page):
     def fill_password(self, password):
         self.input_password.send_keys(password)
 
-    @retry(StaleElementReferenceException)
+    @retry((StaleElementReferenceException, ValueError))
     def login(self, login, password):
+        self.wait_last_event()
         self.fill_login(login)
         self.fill_password(password)
-        self.btn_enter.click()
+
+        # Сохраняем в переменную (а не используем свойство) для того,
+        # т.к. если выполнять поиск элемента перед кликом, мы рискуем,
+        # что страница перерисуется и ввод опять сбросится
+        btn_enter = self.btn_enter
+
+        # Проверяем, что ввод не сбросился
+        value = self.input_password.get_attribute('value')
+        if len(value) == 0:
+            raise ValueError
+
+        btn_enter.click()
 
     @retry(StaleElementReferenceException)
     def logout(self):
