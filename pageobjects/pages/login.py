@@ -51,14 +51,14 @@ class LoginPage(Page):
         self.driver.find_element(by=By.ID, value="createTeamBtnId")
 
     def is_login_error_exists(self):
-        return self.is_element_exists(id_selector="login-validation-box")
+        return self.is_element_exists(selector="login-validation-box")
 
     @retry((StaleElementReferenceException, NoSuchElementException), tries=5)
     def login_error_text(self):
         return self.div_login_error.text
 
     def is_password_error_exists(self):
-        return self.is_element_exists(id_selector="password-validation-box")
+        return self.is_element_exists(selector="password-validation-box")
 
     @retry((StaleElementReferenceException, NoSuchElementException), tries=5)
     def password_error_text(self):

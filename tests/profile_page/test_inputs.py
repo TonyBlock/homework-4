@@ -55,3 +55,10 @@ class LoginTest(TestCaseWithLoginLogout):
         self.page.refresh()
         self.assertEqual(self.page.input_email_text, original_email,
                          "Email должен остаться прежним, т.к. новый email уже занят")
+
+    def test_email_invalid(self):
+        self.page.change_email("invalid_email", constants.authorization_data["password"])
+        self.assertTrue(self.page.is_email_error_exists(), "Ожидался вывод сообщения о не корректном email")
+
+
+

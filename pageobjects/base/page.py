@@ -18,9 +18,9 @@ class Page(object):
     def refresh(self):
         self.driver.refresh()
 
-    def is_element_exists(self, id_selector):
+    def is_element_exists(self, selector, by=By.ID):
         try:
-            self.driver.find_element(by=By.ID, value=id_selector)
+            self.driver.find_element(by=by, value=selector)
         except NoSuchElementException:
             return False
         return True

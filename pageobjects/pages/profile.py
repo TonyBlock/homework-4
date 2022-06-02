@@ -51,11 +51,7 @@ class ProfilePage(Page):
         self.input_avatar.send_keys(avatar_path)
 
     def is_avatar_error_exists(self):
-        try:
-            self.driver.find_element(by=By.ID, value="avatar-validation-box")
-        except NoSuchElementException:
-            return False
-        return True
+        return self.is_element_exists(selector="avatar-validation-box")
 
     @retry((StaleElementReferenceException, ElementNotInteractableException))
     def set_input_login(self, text):
@@ -114,3 +110,6 @@ class ProfilePage(Page):
         self.set_input_email(new_email)
         self.set_old_password(password)
         self.click_save_btn()
+
+    def is_email_error_exists(self):
+        return self.is_element_exists(by=By.CSS_SELECTOR, selector=".error.error_margin")
