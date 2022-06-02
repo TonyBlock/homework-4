@@ -1,5 +1,3 @@
-import time
-
 from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
 from pageobjects.components.header import Header

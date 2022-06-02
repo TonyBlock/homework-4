@@ -1,9 +1,6 @@
-import time
-
 from selenium.webdriver.common.by import By
 from pageobjects.base.page import Page
-from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException, \
-    ElementNotInteractableException
+from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
 from retry import retry
 
 
@@ -113,7 +110,7 @@ class ProfilePage(Page):
         self.set_old_password(password)
         self.click_save_btn()
 
-    def is_email_error_exists(self):
+    def is_input_error_exists(self):
         return self.is_element_exists(by=By.CSS_SELECTOR, selector=".error.error_margin")
 
     def is_login_error_exists(self):
