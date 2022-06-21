@@ -3,6 +3,8 @@ import unittest
 import sys
 import utils.utils as utils
 from tests.test_login import LoginTest
+from tests.profile_page.test_avatar import ProfileAvatarTest
+from tests.profile_page.test_inputs import ProfileInputTest
 
 
 def run_tests(dir, pattern="test*.py"):
@@ -31,10 +33,11 @@ def load_tests(loader, tests, pattern):
     """
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(LoginTest))
-    # suite.addTest(unittest.makeSuite(SecondTestCase))
+    suite.addTest(unittest.makeSuite(ProfileAvatarTest))
+    suite.addTest(unittest.makeSuite(ProfileInputTest))
     return suite
 
 
 if __name__ == "run_tests":
     print("Запуск через python -m unittest run_tests.py")
-    utils.download_selenium(utils.urls_by_os(), force=True)
+    utils.download_selenium(utils.urls_by_os(), force=False)

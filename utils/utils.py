@@ -8,6 +8,7 @@ import tarfile
 import zipfile
 import time
 import socket
+import uuid
 
 
 def is_selenium_installed():
@@ -64,3 +65,27 @@ def sleep_while_server_not_started(host, port):
     while sock.connect_ex((host, port)) != 0:
         time.sleep(0.25)
     sock.close()
+
+
+def sleep_while_server_work(host, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    while sock.connect_ex((host, port)) == 0:
+        sock.close()
+        time.sleep(0.25)
+    sock.close()
+
+
+def generate_unique_string():
+    return str(uuid.uuid1()).replace("-", "")
+
+
+def generate_unique_password():
+    return "x{}".format(generate_unique_string()[:24])
+
+
+def generate_unique_login():
+    return generate_unique_string()[:20]
+
+
+def generate_unique_email():
+    return generate_unique_string() + "@gmail.com"
