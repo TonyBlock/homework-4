@@ -9,7 +9,6 @@ import zipfile
 import time
 import socket
 import uuid
-from selenium import webdriver
 
 
 def is_selenium_installed():

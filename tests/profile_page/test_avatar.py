@@ -2,7 +2,7 @@ from pageobjects.pages.profile import ProfilePage
 from tests.base_test_case import TestCaseWithLoginLogout
 
 
-class LoginTest(TestCaseWithLoginLogout):
+class ProfileAvatarTest(TestCaseWithLoginLogout):
     def setUp(self):
         super().setUp()
 

@@ -5,7 +5,7 @@ import utils.constants as constants
 import utils.utils as utils
 
 
-class LoginTest(TestCaseWithLoginLogout):
+class ProfileInputTest(TestCaseWithLoginLogout):
     def setUp(self):
         super().setUp()
 
