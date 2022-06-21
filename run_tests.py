@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import unittest
 import sys
-import os
 import utils.utils as utils
 from tests.test_login import LoginTest
 from tests.profile_page.test_avatar import ProfileAvatarTest
@@ -37,7 +36,6 @@ def load_tests(loader, tests, pattern):
     suite.addTest(unittest.makeSuite(ProfileAvatarTest))
     suite.addTest(unittest.makeSuite(ProfileInputTest))
     return suite
-
 
 
 if __name__ == "run_tests":
